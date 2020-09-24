@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="AutomationPractice" parallel="tests">
+ 	<test name="ProductOrderChrome">
+	<parameter name="ReportName" value="ProductOrderChrome" />
+ 	<parameter name="Browser" value="Chrome" />
+		<classes>
+			<class name="utilities.ExtentReport" />
+			<class name="utilities.TestBase" />
+			<class name="pages.PageObject" />
+			<class name="testRunner.ProductOrderRunner" /> 
+		</classes>
+	</test>
+<!--  	 	<test name="ProductOrderFirefox">
+	<parameter name="ReportName" value="ProductOrderFirefox" />
+ 	<parameter name="Browser" value="Firefox" />
+		<classes>
+			<class name="utilities.ExtentReport" />
+			<class name="utilities.TestBase" />
+			<class name="pages.PageObject" />
+			<class name="testRunner.ProductOrderRunner" /> 
+		</classes>
+	</test> -->
+</suite>
