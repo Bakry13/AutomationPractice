@@ -16,6 +16,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import io.cucumber.java.Before;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 
 public class TestBase extends AbstractTestNGCucumberTests
@@ -51,7 +52,7 @@ public class TestBase extends AbstractTestNGCucumberTests
 			e.printStackTrace();
 		}
 	}
-	//@AfterTest
+	@AfterTest
 	void closedriver()
 	{
 		driver.quit();

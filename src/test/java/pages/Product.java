@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import utilities.TestBase;
 
@@ -44,6 +45,15 @@ public class Product extends TestBase
 	
 	@FindBy(xpath = "/html[1]/body[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]")
 	public static WebElement orderPrice;
+	
+	@FindBy(id = "our_price_display")
+	public static WebElement itemViewPrice; //item price from product details
+	
+	@FindBy(id = "group_1")
+	public static WebElement itemSize;
+	
+	@FindBy(name = "White")
+	public static WebElement itemWhiteColor;
 	//=====================================Actions==========================================
 	public static void clickAddToCart()
     {
@@ -91,6 +101,15 @@ public class Product extends TestBase
 	public static String getPrice()
     {
 		return orderPrice.getText();
+    }
+	public static void selectSize(String size)
+    {
+		Select sizeList = new Select(itemSize);
+		sizeList.selectByVisibleText(size);
+    }
+	public static void clickWhiteColor()
+    {
+		itemWhiteColor.click();
     }
 	//======================================================================================
 	public Product(WebDriver driver)

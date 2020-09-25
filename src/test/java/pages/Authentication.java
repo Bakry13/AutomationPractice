@@ -24,6 +24,12 @@ public class Authentication extends TestBase
 	
 	@FindBy(xpath = "//p[@class='submit']//span[1]")
 	public static WebElement signInBtn; //sign in button
+	
+	@FindBy(xpath = "//li[contains(text(),'Invalid email address.')]")
+	public static WebElement invalidEmailTxt; //sign in button
+	
+	@FindBy(xpath = "//li[contains(text(),'An account using this email address has already be')]")
+	public static WebElement registeredEmailTxt; //sign in button
 	//=====================================Actions==========================================
 	public static void enterNewEmail(String newEmail)
     {
@@ -44,6 +50,13 @@ public class Authentication extends TestBase
 	public static void clickSignIn()
     {
 		signInBtn.click();
+    }
+	public static void signIn(String email, String pass)
+    {
+		Home.signIn();
+		enterEmail(email);
+		enterPassword(pass);
+		clickSignIn();
     }
 	//======================================================================================
 	public Authentication(WebDriver driver)

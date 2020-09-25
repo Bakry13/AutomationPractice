@@ -1,6 +1,7 @@
 Feature: Product Order
   As a user I want to verify the product order is placed in order history page
 
+	@SigndIn
   Scenario Outline: Validate that the order is placed in order history page after authenticating as new user
     Given automationpractice website is opened
     When  press Sign in
@@ -32,4 +33,5 @@ Feature: Product Order
 
     Examples: 
       | email   			 | gender| firstName  | lastName | password | address 							| city      | state 		 | postalCode | mobile 			| category | subcategory | price  |
-      | test1008@moakt.cc | Mr	   | Automation | Test		 | Test@123 | San Diago, California | San Diago | California | 91911			| 01011111111 | WOMEN		 | Blouses		 | $29.00 |
+      | test1@moakt.cc | Mr	   | Automation | Test		 | Test@123 | TestingAddress | San Diago | California | 91911			| 01011111111 | WOMEN		 | Blouses		 | $29.00 |
+      

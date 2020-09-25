@@ -22,7 +22,10 @@ public class Home extends TestBase
 	public static WebElement womenCategory; //women category
 	
 	@FindBy(linkText = "Blouses")
-	public static WebElement BlousesSubcategory; //blouses Subcategory
+	public static WebElement blousesSubcategory; //blouses Subcategory
+	
+	@FindBy(xpath = "//div[@class='right-block']//span[@class='price product-price'][contains(text(),'$27.00')]")
+	public static WebElement blousesPrice; //blouses Subcategory price
 	
 	@FindBy(xpath = "//div[@class='right-block']//a[@class='product-name'][contains(text(),'Blouse')]")
 	public static WebElement blouseItem; //blouses Subcategory
@@ -31,7 +34,7 @@ public class Home extends TestBase
     {
 		signIn.click();
     }
-	@After
+	@After("@SigndIn")
 	public static void signOut()
     {
 		signOut.click();
@@ -43,7 +46,7 @@ public class Home extends TestBase
 	
 	public static void clickBlouses()
     {
-		BlousesSubcategory.click();
+		blousesSubcategory.click();
     }
 	
 	public static void clickBlouseItem()

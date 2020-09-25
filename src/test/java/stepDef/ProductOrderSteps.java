@@ -158,5 +158,6 @@ public class ProductOrderSteps
 	public void validate_that_the_order_is_placed_in_order_history_page_with_the_correct_date_and(String price) throws IOException {
 		Verification.verifyelement(Product.orderDate, "Order date is found and its value is: "+Product.getOrderDate(), "Order date is not found");
 		Verification.verifyelementText(Product.orderPrice, price, "Product price equals the expected price", "Price found is: "+price);
+		Screenshot.saveScreenshot(TestBase.driver, "Validate that the order is placed in order history page after authenticating as new user"); //take screenshot
 	}
 }
