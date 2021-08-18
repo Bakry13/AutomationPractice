@@ -3,6 +3,7 @@ package utilities;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
@@ -10,14 +11,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import io.cucumber.java.Before;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-
-import io.cucumber.java.Before;
-import io.cucumber.testng.AbstractTestNGCucumberTests;
 
 public class TestBase extends AbstractTestNGCucumberTests
 {
@@ -31,7 +31,8 @@ public class TestBase extends AbstractTestNGCucumberTests
 		try {
 			if(Browser.equalsIgnoreCase("Chrome"))
 			{
-				System.setProperty("webdriver.chrome.driver", driverPath+"ChromeDriver.exe");
+				//System.setProperty("webdriver.chrome.driver", driverPath+"ChromeDriver.exe");
+				WebDriverManager.chromedriver().setup();
 				DesiredCapabilities chromeCap = new DesiredCapabilities();
 				chromeCap.setCapability("resolution", "1024x768");
 				driver = new ChromeDriver(chromeCap);
@@ -61,6 +62,6 @@ public class TestBase extends AbstractTestNGCucumberTests
 	public static void openWebsite()
 	{
 		//WebInit("Chrome");
-		driver.get("http://automationpractice.com");
+		driver.get("https://opensource-demo.orangehrmlive.com/");
 	}
 }

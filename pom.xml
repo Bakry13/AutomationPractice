@@ -42,7 +42,13 @@
     	<artifactId>selenium-java</artifactId>
     	<version>3.141.59</version>
 	</dependency>
-	
+
+      <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+      <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>4.3.1</version>
+  </dependency>
 	<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server-standalone -->
 	<!--<dependency>
     	<groupId>org.seleniumhq.selenium</groupId>
@@ -110,6 +116,18 @@
 	    <artifactId>gherkin</artifactId>
 	    <version>15.0.0</version>
 	</dependency>
+      <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>6.8</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>6.8</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 
   <build>
