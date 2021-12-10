@@ -1,176 +1,247 @@
 package pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+import org.json.simple.JSONObject;
+import org.openqa.selenium.By;
+import utilities.Assertions;
+import utilities.Paths;
+import utilities.actions.ElementActions;
+import utilities.readers.JsonTestDataReader;
 
-import utilities.TestBase;
-
-public class CreateAccount extends TestBase
-{
+public class CreateAccount extends ElementActions {
+	JSONObject customerData = (JSONObject) JsonTestDataReader.parseJson(Paths.customerDataPath);
+	Assertions assertions = new Assertions();
     //----------------------------------Create Account Page Elements---------------------------------------
-	@FindBy(id = "id_gender1")
-	public static WebElement mrGender; //Male gender radio button
-	
-	@FindBy(id = "id_gender2")
-	public static WebElement mrsGender; //Female gender radio button
-	
-	@FindBy(id = "customer_firstname")
-	public static WebElement firstName; //first name txt box
-	
-	@FindBy(id = "customer_lastname")
-	public static WebElement lastName; //last name txt box
-	
-	@FindBy(id = "passwd")
-	public static WebElement password; //password text box
-	
-	@FindBy(id = "address1")
-	public static WebElement address1; //address1 text box
-	
-	@FindBy(id = "city")
-	public static WebElement city; //address1 text box
-	
-	@FindBy(id = "id_state")
-	public static WebElement state; //state drop down
-	
-	@FindBy(id = "postcode")
-	public static WebElement postalCode; //postal code text box
-	
-	@FindBy(id = "phone_mobile")
-	public static WebElement mobilePhone; //mobile phone text box
-	
-	@FindBy(id = "alias")
-	public static WebElement alias; //alias for future reference
-	
-	@FindBy(id = "email")
-	public static WebElement email;
-	
-	@FindBy(id = "days")
-	public static WebElement birthDay;
-	
-	@FindBy(id = "months")
-	public static WebElement birthMonth;
-	
-	@FindBy(id = "years")
-	public static WebElement birthYear;
-	
-	@FindBy(xpath = "//span[contains(text(),'Register')]")
-	public static WebElement registerBtn; //Register Button
-	
-	@FindBy(xpath = "//h3[contains(text(),'Your personal information')]")
-	public static WebElement personalInformationTitle; //Register Button
-	
-	@FindBy(xpath = "//b[contains(text(),'firstname')]")
-	public static WebElement requiredFirstNameTxt; //first name error text
-	
-	@FindBy(xpath = "//b[contains(text(),'lastname')]")
-	public static WebElement requiredLastNameTxt; //last name error text
-	
-	@FindBy(xpath = "//b[contains(text(),'email')]")
-	public static WebElement requiredEmailTxt; //email error text
-	
-	@FindBy(xpath = "//b[contains(text(),'passwd')]")
-	public static WebElement requiredPasswordTxt; //password error text
-	
-	@FindBy(xpath = "//b[contains(text(),'address1')]")
-	public static WebElement requiredAddress1Txt; //Address1 error text
-	
-	@FindBy(xpath = "//b[contains(text(),'city')]")
-	public static WebElement requiredCityTxt; //city error text
-	
-	@FindBy(xpath = "//li[contains(text(),'This country requires you to choose a State.')]")
-	public static WebElement requiredStateTxt; //state error text
-	
-	@FindBy(xpath = "//li[contains(text(),'The Zip')]")
-	public static WebElement requiredPostalcodeTxt; //postal code error text
-	
-	@FindBy(xpath = "//li[contains(text(),'You must register at least one phone number.')]")
-	public static WebElement requiredMobileTxt; //mobile error text
-	
-	@FindBy(xpath = "//b[contains(text(),'alias')]")
-	public static WebElement requiredAliasTxt; //alias error text
-	
-	@FindBy(xpath = "//li[contains(text(),'Invalid date of birth')]")
-	public static WebElement invalidBirthDateTxt; //birth date error text
+	By mrGender = By.id("id_gender1");
+
+	By mrsGender = By.id("id_gender2");
+
+	By firstName = By.id("customer_firstname");
+
+	By lastName = By.id("customer_lastname");
+
+	By password = By.id("passwd");
+
+	By address1 = By.id("address1");
+
+	By city = By.id("city");
+
+	By state = By.id("id_state"); //state drop down
+
+	By postalCode = By.id("postcode"); //postal code text box
+
+	By mobilePhone = By.id("phone_mobile"); //mobile phone text box
+
+	By alias = By.id("alias"); //alias for future reference
+
+	By email = By.id("email");
+
+	By birthDay = By.id("days");
+
+	By birthMonth = By.id("months");
+
+	By birthYear = By.id("years");
+
+	By registerBtn = By.xpath("//span[contains(text(),'Register')]"); //Register Button
+
+	By personalInformationTitle = By.xpath("//h3[contains(text(),'Your personal information')]"); //Register Button
+
+	By requiredFirstNameTxt = By.xpath("//b[contains(text(),'firstname')]"); //first name error text
+
+	By requiredLastNameTxt = By.xpath("//b[contains(text(),'lastname')]"); //last name error text
+
+	By requiredEmailTxt = By.xpath("//b[contains(text(),'email')]"); //email error text
+
+	By requiredPasswordTxt = By.xpath("//b[contains(text(),'passwd')]"); //password error text
+
+	By requiredAddress1Txt = By.xpath("//b[contains(text(),'address1')]"); //Address1 error text
+
+	By requiredCityTxt = By.xpath("//b[contains(text(),'city')]"); //city error text
+
+	By requiredStateTxt = By.xpath("//li[contains(text(),'This country requires you to choose a State.')]"); //state error text
+
+	By requiredPostalCodeTxt = By.xpath("//li[contains(text(),'The Zip')]"); //postal code error text
+
+	By requiredMobileTxt = By.xpath("//li[contains(text(),'You must register at least one phone number.')]"); //mobile error text
+
+	By requiredAliasTxt = By.xpath("//b[contains(text(),'alias')]"); //alias error text
+
+	By invalidBirthDateTxt = By.xpath("//li[contains(text(),'Invalid date of birth')]"); //birth date error text
 	//=====================================Actions==========================================
-	public static void clickMrgender()
+	public void fillCreateAccountForm(String firstName, String lastName, String password, String address, String city, String state, String postalCode, String mobile)
+	{
+		enterFirstName(firstName);
+		enterLastName(lastName);
+		enterPassword(password);
+		enterFirstAddress(address);
+		enterCity(city);
+		if (!(state.equalsIgnoreCase("empty"))) selectState(state);
+		enterPostalCode(postalCode);
+		enterMobilePhone(mobile);
+	}
+
+	public void clearTestedField(String field)
+	{
+		if (field.equals("email")) clearEmail();
+		if (field.equals("alias")) clearAlias();
+	}
+
+	public void clickMrgender()
     {
-		mrGender.click();
+		getElement(mrGender).click();
     }
-	public static void clickMrsgender()
+
+	public void clickMrsgender()
     {
-		mrsGender.click();
+		getElement(mrsGender).click();
     }
-	public static void enterFirstName(String firstNameValue)
+
+	public void chooseGender(String gender)
+	{
+		String genderValue = customerData.get(gender).toString();
+		if (genderValue.equalsIgnoreCase("Mr"))
+			clickMrgender();
+		else if (genderValue.equalsIgnoreCase("Mrs"))
+			clickMrsgender();
+	}
+
+	public void enterFirstName(String firstNameValue)
     {
-		firstName.sendKeys(firstNameValue);
+		String nameValue = customerData.get(firstNameValue).toString();
+		getElement(firstName).sendKeys(nameValue);
     }
-	public static void enterLastName(String lastNameValue)
+
+	public void enterLastName(String lastNameValue)
     {
-		lastName.sendKeys(lastNameValue);
+		String nameValue = customerData.get(lastNameValue).toString();
+		getElement(lastName).sendKeys(nameValue);
     }
-	public static void enterPassword(String pass)
+
+	public void enterPassword(String pass)
     {
-		password.sendKeys(pass);
+		String passwordValue = customerData.get(pass).toString();
+		getElement(password).sendKeys(passwordValue);
     }
-	public static void enterFirstAddress(String address)
+
+	public void enterFirstAddress(String address)
     {
-		address1.sendKeys(address);
+		String addressValue = customerData.get(address).toString();
+		getElement(address1).sendKeys(addressValue);
     }
-	public static void enterCity(String cityValue)
+
+	public void enterCity(String cityValue)
     {
-		city.sendKeys(cityValue);
+		String cityValue1 = customerData.get(cityValue).toString();
+		getElement(city).sendKeys(cityValue1);
     }
-	public static void selectState(String stateValue)
+
+	public void selectState(String stateValue)
     {
-		Select stateList = new Select(state);
-		stateList.selectByVisibleText(stateValue);
+		String stateValue1 = customerData.get(stateValue).toString();
+		selectFromDDL(state,stateValue1);
     }
-	public static void selectBirthDay(String day) throws InterruptedException
+
+	public void selectBirthDay(String day)
     {
-		birthDay.sendKeys(day);
+		String dayValue = customerData.get(day).toString();
+		getElement(birthDay).sendKeys(dayValue);
     }
-	public static void selectBirthMonth(String month) throws InterruptedException
+
+	public void selectBirthMonth(String month)
     {
-		birthMonth.sendKeys(month);
+		String monthValue = customerData.get(month).toString();
+		getElement(birthMonth).sendKeys(monthValue);
     }
-	public static void selectBirthYear(String year)
+	public void selectBirthYear(String year)
     {
-		birthYear.sendKeys(year);
+		String yearValue = customerData.get(year).toString();
+		getElement(birthYear).sendKeys(yearValue);
     }
-	public static void selectBirthDate(String day, String month, String year) throws InterruptedException
+
+	public void selectBirthDate(String day, String month, String year)
     {
 		selectBirthDay(day);
 		selectBirthMonth(month);
 		selectBirthYear(year);
     }
-	public static void enterPostalCode(String code)
+
+	public void enterPostalCode(String code)
     {
-		postalCode.sendKeys(code);
+		String codeValue = customerData.get(code).toString();
+		getElement(postalCode).sendKeys(codeValue);
     }
-	public static void enterMobilePhone(String mobile)
+
+	public void enterMobilePhone(String mobile)
     {
-		mobilePhone.sendKeys(mobile);
+		String mobileValue = customerData.get(mobile).toString();
+		getElement(mobilePhone).sendKeys(mobileValue);
     }
-	public static void clickRegister()
+
+	public void clickRegister()
     {
-		registerBtn.click();
+		getElement(registerBtn).click();
     }
-	public static void clearAlias()
+
+	public void clearAlias()
     {
-		alias.clear();
+		getElement(alias).clear();
     }
-	public static void clearEmail()
+
+	public void clearEmail()
     {
-		email.clear();
+		getElement(email).clear();
     }
-	//======================================================================================
-	public CreateAccount(WebDriver driver)
+	//============================================Assertions===================================================
+	public void assertInvalidPassword()
 	{
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-    }
+		assertions.assertElementExist(requiredPasswordTxt);
+	}
+
+	public void assertInvalidBirthDate()
+	{
+		assertions.assertElementExist(invalidBirthDateTxt);
+	}
+
+	public void assertEmptyField(String field)
+	{
+		if (field.equalsIgnoreCase("email"))
+		{
+			assertions.assertElementExist(requiredEmailTxt);
+		}
+		else if (field.equalsIgnoreCase("firstName"))
+		{
+			assertions.assertElementExist(requiredFirstNameTxt);
+		}
+		else if (field.equalsIgnoreCase("lastName"))
+		{
+			assertions.assertElementExist(requiredLastNameTxt);
+		}
+		else if (field.equalsIgnoreCase("password"))
+		{
+			assertions.assertElementExist(requiredPasswordTxt);
+		}
+		else if (field.equalsIgnoreCase("address"))
+		{
+			assertions.assertElementExist(requiredAddress1Txt);
+		}
+		else if (field.equalsIgnoreCase("city"))
+		{
+			assertions.assertElementExist(requiredCityTxt);
+		}
+		else if (field.equalsIgnoreCase("state"))
+		{
+			assertions.assertElementExist(requiredStateTxt);
+		}
+		else if (field.equalsIgnoreCase("postalCode"))
+		{
+			assertions.assertElementExist(requiredPostalCodeTxt);
+		}
+		else if (field.equalsIgnoreCase("mobile"))
+		{
+			assertions.assertElementExist(requiredMobileTxt);
+		}
+		else if (field.equalsIgnoreCase("alias"))
+		{
+			assertions.assertElementExist(requiredAliasTxt);
+		}
+	}
 }

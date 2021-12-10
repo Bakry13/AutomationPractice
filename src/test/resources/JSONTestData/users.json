@@ -1,0 +1,24 @@
+{
+  "email1": "test121@moakt.cc",
+  "gender1": "Mr",
+  "firstName1": "Automation",
+  "lastName1": "Test",
+  "password1": "Test@123",
+  "address1": "TestingAddress",
+  "city1": "San Diago",
+  "state1": "California",
+  "postalCode1": "91911",
+  "mobile1": "01011111111",
+  "category1": "WOMEN",
+  "subCategory1": "Blouses",
+  "price1": "$29.00",
+
+  "email2": "test115@moakt.cc",
+  "email3": "test5@moakt.cc",
+  "invalidEmail1": "",
+  "invalidEmail2": "test",
+  "invalidPasswor1": "test",
+  "day1": "31",
+
+  "empty": ""
+}

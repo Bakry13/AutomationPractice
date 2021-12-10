@@ -1,62 +1,46 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
+import org.openqa.selenium.By;
 import io.cucumber.java.After;
-import utilities.TestBase;
+import utilities.actions.ElementActions;
 
-public class Home extends TestBase
-{
+public class Home extends ElementActions {
 	//----------------------------------Home Page Elements---------------------------------------
-	@FindBy(xpath = "//a[@class='login']")
-	public static WebElement signIn; //Sign in
-	
-	@FindBy(linkText = "Sign out")
-	public static WebElement signOut; //Sign out
-	
-	@FindBy(xpath = "//a[@class='sf-with-ul'][contains(text(),'Women')]")
-	public static WebElement womenCategory; //women category
-	
-	@FindBy(linkText = "Blouses")
-	public static WebElement blousesSubcategory; //blouses Subcategory
-	
-	@FindBy(xpath = "//div[@class='right-block']//span[@class='price product-price'][contains(text(),'$27.00')]")
-	public static WebElement blousesPrice; //blouses Subcategory price
-	
-	@FindBy(xpath = "//div[@class='right-block']//a[@class='product-name'][contains(text(),'Blouse')]")
-	public static WebElement blouseItem; //blouses Subcategory
+	By signIn = By.xpath("//a[@class='login']"); //Sign in
+
+	By signOut = By.linkText("Sign out"); //Sign out
+
+	By womenCategory = By.xpath("//a[@class='sf-with-ul'][contains(text(),'Women')]"); //women category
+
+	By blousesSubcategory = By.linkText("Blouses"); //blouses Subcategory
+
+	By blousesPrice = By.xpath("//div[@class='right-block']//span[@class='price product-price'][contains(text(),'$27.00')]"); //blouses Subcategory price
+
+	By blouseItem = By.xpath("//div[@class='right-block']//a[@class='product-name'][contains(text(),'Blouse')]"); //blouses Subcategory
 	//=====================================Actions==========================================
-	public static void signIn()
+	public void signIn()
     {
-		signIn.click();
+		getElement(signIn).click();
     }
+
 	@After("@SigndIn")
-	public static void signOut()
+	public void signOut()
     {
-		signOut.click();
+		getElement(signOut).click();
     }
-	public static void selectWomenCategory()
+
+	public void selectWomenCategory()
     {
-		action.moveToElement(womenCategory).perform();
-    }
-	
-	public static void clickBlouses()
-    {
-		blousesSubcategory.click();
+		getElement(womenCategory);
     }
 	
-	public static void clickBlouseItem()
+	public void clickBlouses()
     {
-		blouseItem.click();
+		getElement(blousesSubcategory).click();
     }
-	//======================================================================================
-	public Home(WebDriver driver)
-	{
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+	
+	public void clickBlouseItem()
+    {
+		getElement(blouseItem).click();
     }
 }

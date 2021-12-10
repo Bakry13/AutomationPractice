@@ -1,67 +1,74 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.json.simple.JSONObject;
+import org.openqa.selenium.By;
+import utilities.Assertions;
+import utilities.Paths;
+import utilities.actions.ElementActions;
+import utilities.readers.JsonTestDataReader;
 
-import utilities.TestBase;
-
-public class Authentication extends TestBase
-{
+public class Authentication extends ElementActions {
+	JSONObject customerData = (JSONObject) JsonTestDataReader.parseJson(Paths.customerDataPath);
+	Home home = new Home();
+	Assertions assertions = new Assertions();
     //----------------------------------Authentication Page Elements---------------------------------------
-	@FindBy(id = "email_create")
-	public static WebElement creatEmail; //new email for registeration
+	By createEmail = By.id("email_create");
 
-	@FindBy(xpath = "//form[@id='create-account_form']//span[1]")
-	public static WebElement createAccountBtn; //creat account button
-	
-	@FindBy(id = "email")
-	public static WebElement email; //email text box
-	
-	@FindBy(id = "passwd")
-	public static WebElement password; //password text box
-	
-	@FindBy(xpath = "//p[@class='submit']//span[1]")
-	public static WebElement signInBtn; //sign in button
-	
-	@FindBy(xpath = "//li[contains(text(),'Invalid email address.')]")
-	public static WebElement invalidEmailTxt; //sign in button
-	
-	@FindBy(xpath = "//li[contains(text(),'An account using this email address has already be')]")
-	public static WebElement registeredEmailTxt; //sign in button
+	By createAccountBtn = By.id("SubmitCreate");
+
+	By email = By.id("email");
+
+	By password = By.id("passwd");
+
+	By signInBtn = By.xpath("//p[@class='submit']//span[1]");
+
+	By invalidEmailTxt = By.cssSelector("div[id='create_account_error'] ol li");
+	//=====================================Strings==========================================
+	String invalidEmailMsg = "Invalid email address.";
+	String registeredEmailMsg = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
 	//=====================================Actions==========================================
-	public static void enterNewEmail(String newEmail)
+	public void enterNewEmail(String newEmail)
     {
-		creatEmail.sendKeys(newEmail);
+		String email = customerData.get(newEmail).toString();
+		getElement(createEmail).sendKeys(email);
     }
-	public static void clickCreateAccount()
+
+	public void clickCreateAccount()
     {
-		createAccountBtn.click();
+		getElement(createAccountBtn).click();
+		try {Thread.sleep(4000);} catch (InterruptedException ignored) {}
+	}
+
+	public void enterEmail(String emailAddress)
+    {
+		getElement(email).sendKeys(emailAddress);
     }
-	public static void enterEmail(String emailAddress)
+
+	public void enterPassword(String pass)
     {
-		email.sendKeys(emailAddress);
+		getElement(password).sendKeys(pass);
     }
-	public static void enterPassword(String pass)
+
+	public void clickSignIn()
     {
-		password.sendKeys(pass);
+		getElement(signInBtn).click();
     }
-	public static void clickSignIn()
+
+	public void signIn(String email, String pass)
     {
-		signInBtn.click();
-    }
-	public static void signIn(String email, String pass)
-    {
-		Home.signIn();
+		home.signIn();
 		enterEmail(email);
 		enterPassword(pass);
 		clickSignIn();
     }
-	//======================================================================================
-	public Authentication(WebDriver driver)
+	//==========================================Text Assertions===============================
+	public void assertInvalidEmailTxt()
 	{
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-    }
+		assertions.assertElementText(invalidEmailTxt, invalidEmailMsg);
+	}
+
+	public void assertAlreadyRegisteredEmailTxt()
+	{
+		assertions.assertElementText(invalidEmailTxt, registeredEmailMsg);
+	}
 }

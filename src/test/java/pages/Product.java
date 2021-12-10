@@ -1,120 +1,111 @@
 package pages;
 
+import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+import utilities.Assertions;
+import utilities.Paths;
+import utilities.actions.ElementActions;
+import utilities.readers.JsonTestDataReader;
 
-import utilities.TestBase;
-
-public class Product extends TestBase
-{
+public class Product extends ElementActions {
+	JSONObject customerData = (JSONObject) JsonTestDataReader.parseJson(Paths.customerDataPath);
+	Assertions assertions = new Assertions();
     //----------------------------------product control Page Elements---------------------------------------
-	@FindBy(xpath = "//span[contains(text(),'Add to cart')]")
-	public static WebElement addToCart; 
-	
-	@FindBy(xpath = "//span[contains(text(),'Proceed to checkout')]")
-	public static WebElement proceedToChecout; 
-	
-	@FindBy(xpath = "//a[@class='button btn btn-default standard-checkout button-medium']//span[contains(text(),'Proceed to checkout')]")
-	public static WebElement summaryProceed;
+	By addToCart = By.xpath("//span[contains(text(),'Add to cart')]");
 
-	@FindBy(xpath = "//button[@name='processAddress']//span[contains(text(),'Proceed to checkout')]")
-	public static WebElement addressProceed;
-	
-	@FindBy(id = "cgv")
-	public static WebElement TermsAgree; //Checkbox
-	
-	@FindBy(xpath = "//button[@name='processCarrier']//span[contains(text(),'Proceed to checkout')]")
-	public static WebElement shippingProceed;
-	
-	@FindBy(xpath = "//a[@class='bankwire']")
-	public static WebElement bankWire;
-	
-	@FindBy(xpath = "//span[contains(text(),'I confirm my order')]")
-	public static WebElement confirmBtn;
-	
-	@FindBy(linkText = "Back to orders")
-	public static WebElement BackToOrers;
-	
-	@FindBy(xpath = "/html[1]/body[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]")
-	public static WebElement orderDate;
-	
-	@FindBy(xpath = "/html[1]/body[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]")
-	public static WebElement orderPrice;
-	
-	@FindBy(id = "our_price_display")
-	public static WebElement itemViewPrice; //item price from product details
-	
-	@FindBy(id = "group_1")
-	public static WebElement itemSize;
-	
-	@FindBy(name = "White")
-	public static WebElement itemWhiteColor;
+	By proceedToChecout = By.xpath("//span[contains(text(),'Proceed to checkout')]");
+
+	By summaryProceed = By.xpath("//a[@class='button btn btn-default standard-checkout button-medium']//span[contains(text(),'Proceed to checkout')]");
+
+	By addressProceed = By.xpath("//button[@name='processAddress']//span[contains(text(),'Proceed to checkout')]");
+
+	By TermsAgree = By.id("cgv"); //Checkbox
+
+	By shippingProceed = By.xpath("//button[@name='processCarrier']//span[contains(text(),'Proceed to checkout')]");
+
+	By bankWire = By.xpath("//a[@class='bankwire']");
+
+	By confirmBtn = By.xpath("//span[contains(text(),'I confirm my order')]");
+
+	By BackToOrers = By.linkText("Back to orders");
+
+	By orderDate = By.xpath("/html[1]/body[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[2]");
+
+	By orderPrice = By.xpath("/html[1]/body[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]");
+
+	By itemViewPrice = By.id("our_price_display"); //item price from product details
+
+	By itemSize = By.id("group_1");
+
+	By itemWhiteColor = By.name("White");
 	//=====================================Actions==========================================
-	public static void clickAddToCart()
+	public void clickAddToCart()
     {
-		action.moveToElement(addToCart).click().perform();
+		getElement(addToCart).click();
     }
 	
-	public static void clickProceedToChecout() throws InterruptedException
+	public void clickProceedToChecout()
     {
-		Thread.sleep(2000);
-		action.moveToElement(proceedToChecout).click().perform();
+		try {Thread.sleep(2000);} catch (InterruptedException ignored) {}
+		getElement(proceedToChecout).click();
     }
-	public static void clickSummaryProceed() throws InterruptedException
+
+	public void clickSummaryProceed()
     {
-		action.moveToElement(summaryProceed).click().perform();
+		getElement(summaryProceed).click();
     }
-	public static void clickAddressProceed() throws InterruptedException
+
+	public void clickAddressProceed()
     {
-		action.moveToElement(addressProceed).click().perform();
+		getElement(addressProceed).click();
     }
-	public static void agreeTerms()
+
+	public void agreeTerms()
     {
-		TermsAgree.click();
+		getElement(TermsAgree).click();
     }
-	public static void clickShippingProceed() throws InterruptedException
+
+	public void clickShippingProceed()
     {
-		action.moveToElement(shippingProceed).click().perform();
+		getElement(shippingProceed).click();
     }
 	
-	public static void clickBankWire() throws InterruptedException
+	public void clickBankWire()
     {
-		action.moveToElement(bankWire).click().perform();
+		getElement(bankWire).click();
     }
-	public static void clickConfirm() throws InterruptedException
+	public void clickConfirm()
     {
-		action.moveToElement(confirmBtn).click().perform();
+		getElement(confirmBtn).click();
     }
-	public static void clickBackToOrders() throws InterruptedException
+	public void clickBackToOrders()
     {
-		action.moveToElement(BackToOrers).click().perform();
+		getElement(BackToOrers).click();
     }
-	public static String getOrderDate()
+
+	public String getOrderDate()
     {
-		return orderDate.getText();
+		return getElement(orderDate).getText();
     }
-	public static String getPrice()
+
+	public String getPrice()
     {
-		return orderPrice.getText();
+		return getElement(orderPrice).getText();
     }
-	public static void selectSize(String size)
+
+	public void selectSize(String size)
     {
-		Select sizeList = new Select(itemSize);
-		sizeList.selectByVisibleText(size);
+		selectFromDDL(itemSize, size);
     }
-	public static void clickWhiteColor()
+	public void clickWhiteColor()
     {
-		itemWhiteColor.click();
+		getElement(itemWhiteColor).click();
     }
-	//======================================================================================
-	public Product(WebDriver driver)
+	//===========================================Assertions===================================================
+	public void assertElementInProductHistory(String price)
 	{
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-    }
+		String priceValue = customerData.get(price).toString();
+		assertions.assertElementExist(orderDate);
+		assertions.assertElementText(orderPrice, priceValue);
+	}
 }
